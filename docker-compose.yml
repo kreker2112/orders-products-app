@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # HTTP сервер
+      - "3001:3001" # WebSocket
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - WS_PORT=3001 # Если в коде сервера это указано для WebSocket
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - VUE_APP_API_URL=http://server:3000 # Используем имя контейнера для сервера
+      - VUE_APP_IMAGES_URL=http://server:3000/images # URL для изображений
+    depends_on:
+      - server
