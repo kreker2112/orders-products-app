@@ -3789,3 +3789,8 @@
 2024-11-13T15:39:48.916Z [INFO]: Orders data retrieved successfully
 2024-11-13T15:39:48.917Z [INFO]: Products data retrieved successfully
 2024-11-13T15:39:48.964Z [INFO]: New WebSocket connection established. Active sessions: 1
+2024-11-14T15:17:14.690Z [INFO]: Main server is running on http://localhost:3000
+2024-11-14T15:17:14.694Z [INFO]: WebSocket server is running on http://localhost:3001
+2024-11-14T15:17:53.194Z [INFO]: Products data retrieved successfully
+2024-11-14T15:17:53.200Z [INFO]: Orders data retrieved successfully
+2024-11-14T15:17:53.218Z [INFO]: New WebSocket connection established. Active sessions: 1
