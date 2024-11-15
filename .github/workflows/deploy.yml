@@ -48,15 +48,6 @@ jobs:
         run: |
           heroku stack:set container --app $HEROKU_APP_NAME
 
-      - name: Check if Heroku app exists
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: |
-          if ! heroku apps:info --app $HEROKU_APP_NAME; then
-            heroku create $HEROKU_APP_NAME --stack=container
-          fi
-
       - name: Build and Push Docker images
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
