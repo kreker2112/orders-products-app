@@ -20,17 +20,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      # Создаем .env файл для сервера
+      # Создаем .env файл для сервера из секретов
       - name: Create .env file for server
+        env:
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          SERVER_WS_PORT: ${{ secrets.SERVER_WS_PORT }}
         run: |
-          echo "PORT=3000" > ./server/.env
-          echo "WS_PORT=3001" >> ./server/.env
+          echo "PORT=$SERVER_PORT" > ./server/.env
+          echo "WS_PORT=$SERVER_WS_PORT" >> ./server/.env
 
-      # Создаем .env файл для клиента
+      # Создаем .env файл для клиента из секретов
       - name: Create .env file for client
+        env:
+          CLIENT_WS_URL: ${{ secrets.CLIENT_WS_URL }}
+          CLIENT_IMAGES_URL: ${{ secrets.CLIENT_IMAGES_URL }}
         run: |
-          echo "VUE_APP_WS_URL=http://localhost:3001" > ./client/.env
-          echo "VUE_APP_IMAGES_URL=http://localhost:3000/images" >> ./client/.env
+          echo "VUE_APP_WS_URL=$CLIENT_WS_URL" > ./client/.env
+          echo "VUE_APP_IMAGES_URL=$CLIENT_IMAGES_URL" >> ./client/.env
 
       # Логинимся в Heroku
       - name: Login to Heroku Container Registry
