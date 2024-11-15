@@ -44,7 +44,7 @@ const store = useStore();
 const currentTime = ref(new Date().toLocaleTimeString());
 
 const activeSessions = computed(() => store.state.activeSessions);
-const socket = io(process.env.VUE_APP_API_URL);
+const socket = io(process.env.VUE_APP_WS_URL);
 
 socket.on("session-count", (count) => {
   store.commit("setActiveSessions", count);
