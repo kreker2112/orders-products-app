@@ -14,6 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Устанавливаем Heroku CLI
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
       # Устанавливаем Docker Compose
       - name: Install Docker Compose
         run: |
@@ -41,13 +46,14 @@ jobs:
         run: |
           echo $HEROKU_API_KEY | docker login --username=$HEROKU_EMAIL --password-stdin registry.heroku.com
 
+      # Проверяем, существует ли приложение
       - name: Check if Heroku app exists
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
           if ! heroku apps:info --app $HEROKU_APP_NAME; then
-            heroku create $HEROKU_APP_NAME
+            heroku create $HEROKU_APP_NAME --stack=container
           fi
 
       # Сборка и пуш Docker образов
