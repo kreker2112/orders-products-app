@@ -10,22 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Шаг 1: Клонирование кода из репозитория
+      # Клонируем код
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Шаг 2: Установка Docker Compose
+      # Устанавливаем Docker Compose
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      # Шаг 3: Установка Heroku CLI
-      - name: Install Heroku CLI
+      # Создаем .env файл для сервера
+      - name: Create .env file for server
         run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+          echo "PORT=3000" > ./server/.env
+          echo "WS_PORT=3001" >> ./server/.env
 
-      # Шаг 4: Логин в Heroku Container Registry
+      # Создаем .env файл для клиента
+      - name: Create .env file for client
+        run: |
+          echo "VUE_APP_WS_URL=http://localhost:3001" > ./client/.env
+          echo "VUE_APP_IMAGES_URL=http://localhost:3000/images" >> ./client/.env
+
+      # Логинимся в Heroku
       - name: Login to Heroku Container Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -33,7 +40,7 @@ jobs:
         run: |
           echo $HEROKU_API_KEY | docker login --username=$HEROKU_EMAIL --password-stdin registry.heroku.com
 
-      # Шаг 5: Сборка и пуш Docker-образа в Heroku Container Registry
+      # Сборка и отправка образа
       - name: Build and Push Docker image to Heroku
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
@@ -42,7 +49,7 @@ jobs:
           docker tag orders-products-app_web registry.heroku.com/$HEROKU_APP_NAME/web
           docker push registry.heroku.com/$HEROKU_APP_NAME/web
 
-      # Шаг 6: Релиз приложения на Heroku
+      # Релиз приложения
       - name: Release the Heroku app
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
