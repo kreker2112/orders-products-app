@@ -41,6 +41,15 @@ jobs:
         run: |
           echo $HEROKU_API_KEY | docker login --username=$HEROKU_EMAIL --password-stdin registry.heroku.com
 
+      - name: Check if Heroku app exists
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+        run: |
+          if ! heroku apps:info --app $HEROKU_APP_NAME; then
+            heroku create $HEROKU_APP_NAME
+          fi
+
       # Сборка и пуш Docker образов
       - name: Build and Push Docker images
         run: |
