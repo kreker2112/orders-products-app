@@ -8,13 +8,20 @@ const logger = require("./utils/logger");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT;
-const WS_PORT = process.env.WS_PORT;
+const PORT = process.env.PORT || 3000;
+const WS_PORT = process.env.WS_PORT || 3001;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
+
+// Обслуживание статических файлов из клиентской части
+app.use(express.static(path.join(__dirname, "client/dist")));
+
+// Маршрут для API изображений
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
+// API маршруты
 app.get("/api/orders", (_req, res) => {
   try {
     const ordersWithProducts = orders.map((order) => ({
@@ -34,17 +41,17 @@ app.get("/api/products", (_req, res) => {
   logger.info("Products data retrieved successfully");
 });
 
-app.get("/", (_req, res) => {
-  res.send(
-    "API Server is running. Use /api/orders or /api/products to access data."
-  );
-  logger.info("Main route accessed");
+// Обслуживание клиентской части для всех остальных маршрутов
+app.get("*", (_req, res) => {
+  res.sendFile(path.resolve(__dirname, "client/dist", "index.html"));
 });
 
+// Запуск основного сервера
 app.listen(PORT, () => {
   logger.info(`Main server is running on http://localhost:${PORT}`);
 });
 
+// Настройка WebSocket сервера
 const wsServer = http.createServer();
 const io = new Server(wsServer, {
   cors: {
