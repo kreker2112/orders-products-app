@@ -21,6 +21,9 @@ RUN yarn install
 # Копируем исходный код
 COPY . .
 
+# Копируем папку public
+COPY ./public /app/public
+
 # Открываем порты (опционально)
 EXPOSE ${PORT} ${WS_PORT}
 
