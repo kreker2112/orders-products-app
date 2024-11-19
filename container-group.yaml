@@ -1,0 +1,53 @@
+apiVersion: "2019-12-01"
+location: eastus
+name: orders-products-app
+identity:
+  type: SystemAssigned
+properties:
+  containers:
+    - name: server
+      properties:
+        image: ordersproductsregistry.azurecr.io/server:latest
+        ports:
+          - port: 3000
+          - port: 3001
+        resources:
+          requests:
+            cpu: 1.0
+            memoryInGB: 1.5
+        environmentVariables:
+          - name: PORT
+            value: "3000"
+          - name: WS_PORT
+            value: "3001"
+    - name: client
+      properties:
+        image: ordersproductsregistry.azurecr.io/client:latest
+        ports:
+          - port: 8080
+        resources:
+          requests:
+            cpu: 1.0
+            memoryInGB: 1.5
+        environmentVariables:
+          - name: VUE_APP_API_URL
+            value: "http://server:3000"
+          - name: VUE_APP_WS_URL
+            value: "http://server:3001"
+          - name: VUE_APP_IMAGES_URL
+            value: "http://server:3000/images"
+  osType: Linux
+  ipAddress:
+    type: Public
+    ports:
+      - protocol: tcp
+        port: 3000
+      - protocol: tcp
+        port: 3001
+      - protocol: tcp
+        port: 8080
+  imageRegistryCredentials:
+    - server: ordersproductsregistry.azurecr.io
+      identity: [system]
+tags: {}
+type: Microsoft.ContainerInstance/containerGroups

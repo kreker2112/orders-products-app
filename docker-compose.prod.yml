@@ -4,14 +4,12 @@ services:
       context: ./server
       dockerfile: Dockerfile
       args:
-        ENVIRONMENT: ${ENVIRONMENT}
-        PORT: ${SERVER_PORT}
-        WS_PORT: ${WS_PORT}
+        ENVIRONMENT: production
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
       - "${WS_PORT}:${WS_PORT}"
     environment:
-      NODE_ENV: ${ENVIRONMENT}
+      NODE_ENV: production
       PORT: ${SERVER_PORT}
       WS_PORT: ${WS_PORT}
 
@@ -20,14 +18,14 @@ services:
       context: ./client
       dockerfile: Dockerfile
       args:
-        ENVIRONMENT: ${ENVIRONMENT}
+        ENVIRONMENT: production
         VUE_APP_API_URL: ${VUE_APP_API_URL}
         VUE_APP_WS_URL: ${VUE_APP_WS_URL}
         VUE_APP_IMAGES_URL: ${VUE_APP_IMAGES_URL}
     ports:
-      - "${CLIENT_PORT}:80"
+      - "${CLIENT_PORT}:80" # Порт клиента (Nginx)
     environment:
-      NODE_ENV: ${ENVIRONMENT}
+      NODE_ENV: production
       VUE_APP_API_URL: ${VUE_APP_API_URL}
       VUE_APP_WS_URL: ${VUE_APP_WS_URL}
       VUE_APP_IMAGES_URL: ${VUE_APP_IMAGES_URL}

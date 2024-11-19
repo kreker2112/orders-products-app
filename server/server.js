@@ -12,7 +12,13 @@ const PORT = process.env.PORT || 3000;
 const WS_PORT = process.env.WS_PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 // Обслуживание статических файлов из клиентской части
@@ -48,7 +54,7 @@ app.get("*", (_req, res) => {
 
 // Запуск основного сервера
 app.listen(PORT, () => {
-  logger.info(`Main server is running on http://localhost:${PORT}`);
+  logger.info(`Main server is running on port:${PORT}`);
 });
 
 // Настройка WebSocket сервера
@@ -57,6 +63,7 @@ const io = new Server(wsServer, {
   cors: {
     origin: "*",
   },
+  path: "/socket.io", // Добавьте эту строку
 });
 
 let activeSessions = 0;
@@ -78,7 +85,7 @@ io.on("connection", (socket) => {
 });
 
 wsServer.listen(WS_PORT, () => {
-  logger.info(`WebSocket server is running on http://localhost:${WS_PORT}`);
+  logger.info(`WebSocket server is running on port:${WS_PORT}`);
 });
 
 console.log("Serving images from:", path.join(__dirname, "public/images"));

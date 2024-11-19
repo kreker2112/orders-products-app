@@ -44,7 +44,10 @@ const store = useStore();
 const currentTime = ref(new Date().toLocaleTimeString());
 
 const activeSessions = computed(() => store.state.activeSessions);
-const socket = io(process.env.VUE_APP_WS_URL);
+const socket = io(process.env.VUE_APP_WS_URL, {
+  path: "/socket.io",
+  transports: ["websocket", "polling"],
+});
 
 socket.on("session-count", (count) => {
   store.commit("setActiveSessions", count);

@@ -54,14 +54,18 @@ const store = createStore({
       if (state.orders.length === 0) {
         // Загружаем данные, если они ещё не загружены
         commit("setLoading", true);
-        const response = await axios.get("http://localhost:3000/api/orders");
+        const response = await axios.get(
+          `${process.env.VUE_APP_API_URL}/api/orders`
+        );
         commit("setOrders", response.data);
         commit("setLoading", false);
       }
     },
     async fetchProducts({ commit }) {
       commit("setLoading", true);
-      const response = await axios.get("http://localhost:3000/api/products");
+      const response = await axios.get(
+        `${process.env.VUE_APP_API_URL}/api/products`
+      );
       commit("setProducts", response.data);
       commit("setLoading", false);
     },
