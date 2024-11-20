@@ -3816,3 +3816,10 @@
 2024-11-19T15:46:34.779Z [INFO]: Products data retrieved successfully
 2024-11-19T15:46:35.910Z [INFO]: Products data retrieved successfully
 2024-11-19T15:46:38.444Z [INFO]: WebSocket connection closed. Active sessions: 0
+2024-11-19T23:16:45.395Z [INFO]: Main server is running on port:3000
+2024-11-19T23:16:45.401Z [INFO]: WebSocket server is running on port:3001
+2024-11-19T23:17:19.190Z [INFO]: New WebSocket connection established. Active sessions: 1
+2024-11-19T23:17:19.197Z [INFO]: Products data retrieved successfully
+2024-11-19T23:17:19.204Z [INFO]: Orders data retrieved successfully
+2024-11-19T23:17:23.005Z [INFO]: Products data retrieved successfully
+2024-11-19T23:17:28.278Z [INFO]: WebSocket connection closed. Active sessions: 0

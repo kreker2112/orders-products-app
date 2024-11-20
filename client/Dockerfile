@@ -6,13 +6,20 @@ WORKDIR /app
 ARG ENVIRONMENT=production
 ARG VUE_APP_API_URL=""
 ARG VUE_APP_WS_URL=""
-ARG VUE_APP_IMAGES_URL="/images"
+ARG VUE_APP_IMAGES_URL=/images
 
 # Устанавливаем переменные окружения для сборки
 ENV NODE_ENV=$ENVIRONMENT
 ENV VUE_APP_API_URL=$VUE_APP_API_URL
 ENV VUE_APP_WS_URL=$VUE_APP_WS_URL
 ENV VUE_APP_IMAGES_URL=$VUE_APP_IMAGES_URL
+
+# Отладка переменных окружения
+RUN echo "Building with the following environment variables:"
+RUN echo "ENVIRONMENT=${ENVIRONMENT}"
+RUN echo "VUE_APP_API_URL=${VUE_APP_API_URL}"
+RUN echo "VUE_APP_WS_URL=${VUE_APP_WS_URL}"
+RUN echo "VUE_APP_IMAGES_URL=${VUE_APP_IMAGES_URL}"
 
 # Копируем package.json и yarn.lock
 COPY package.json yarn.lock ./
@@ -24,8 +31,12 @@ RUN yarn install --production=false
 COPY . .
 
 # Собираем приложение
-RUN yarn build
+RUN echo "Starting build process..." && yarn build
 
+# Проверяем содержимое папки dist после сборки
+RUN echo "Contents of /app/dist after build:" && ls -l /app/dist
+
+# Этап для Nginx
 FROM nginx:alpine
 
 WORKDIR /usr/share/nginx/html
@@ -35,6 +46,9 @@ COPY --from=build /app/dist .
 
 # Копируем конфигурацию Nginx
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+# Проверяем наличие конфигурации Nginx
+RUN echo "Contents of /etc/nginx/conf.d:" && ls -l /etc/nginx/conf.d
 
 EXPOSE 80
 

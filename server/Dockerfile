@@ -2,7 +2,7 @@ FROM node:16
 
 WORKDIR /app
 
-# Аргументы сборки с значениями по умолчанию
+# Аргументы сборки
 ARG ENVIRONMENT=production
 ARG PORT=3000
 ARG WS_PORT=3001
@@ -12,7 +12,7 @@ ENV NODE_ENV=${ENVIRONMENT}
 ENV PORT=${PORT}
 ENV WS_PORT=${WS_PORT}
 
-# Копируем файлы package.json и yarn.lock
+# Копируем package.json и yarn.lock
 COPY package.json yarn.lock ./
 
 # Устанавливаем зависимости
@@ -20,11 +20,9 @@ RUN yarn install
 
 # Копируем исходный код
 COPY . .
-
-# Копируем папку public
 COPY ./public /app/public
 
-# Открываем порты (опционально)
+# Открываем порты
 EXPOSE ${PORT} ${WS_PORT}
 
 # Запуск приложения
