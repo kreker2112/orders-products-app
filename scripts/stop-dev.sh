@@ -3,6 +3,10 @@
 # Переходим в корневую директорию проекта
 cd "$(dirname "$0")/.."
 
+# Очищаем кеши Docker
+echo "Clearing Docker caches before starting development environment..."
+./scripts/clear-docker-cache.sh
+
 # Устанавливаем переменные окружения для разработки
 export ENVIRONMENT=development
 export SERVER_PORT=3000

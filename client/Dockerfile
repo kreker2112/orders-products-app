@@ -4,9 +4,9 @@ WORKDIR /app
 
 # Определяем аргументы сборки
 ARG ENVIRONMENT=production
-ARG VUE_APP_API_URL="http://server:3000"
-ARG VUE_APP_WS_URL="http://server:3001"
-ARG VUE_APP_IMAGES_URL="http://server:3000/images"
+ARG VUE_APP_API_URL=""
+ARG VUE_APP_WS_URL=""
+ARG VUE_APP_IMAGES_URL="http://localhost:8080/images"
 
 # Устанавливаем переменные окружения для сборки
 ENV NODE_ENV=$ENVIRONMENT
