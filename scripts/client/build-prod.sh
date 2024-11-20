@@ -2,9 +2,9 @@
 
 # Устанавливаем переменные окружения для режима продакшена
 ENVIRONMENT=production
-VUE_APP_API_URL=
-VUE_APP_WS_URL=
-VUE_APP_IMAGES_URL=/images
+VUE_APP_API_URL=""
+VUE_APP_WS_URL=""
+VUE_APP_IMAGES_URL=http://server:3000/images
 IMAGE_NAME=orders-products-app-client-prod
 
 # Переходим в корневую директорию проекта

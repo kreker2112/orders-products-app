@@ -7,9 +7,9 @@ cd "$(dirname "$0")/.."
 export SERVER_PORT=3000
 export WS_PORT=3001
 export CLIENT_PORT=8080
-export VUE_APP_API_URL=""  # Пустое значение
-export VUE_APP_WS_URL=""   # Пустое значение
-export VUE_APP_IMAGES_URL=/images
+export VUE_APP_API_URL=http://server:$SERVER_PORT
+export VUE_APP_WS_URL=http://server:$WS_PORT
+export VUE_APP_IMAGES_URL=http://server:$SERVER_PORT/images
 export ENVIRONMENT=production  # Добавляем ENVIRONMENT
 
 # Запускаем Docker Compose с использованием продакшен-конфигурации

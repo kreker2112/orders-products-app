@@ -4,7 +4,7 @@
 ENVIRONMENT=development
 VUE_APP_API_URL=http://localhost:3000
 VUE_APP_WS_URL=http://localhost:3000
-VUE_APP_IMAGES_URL=/images
+VUE_APP_IMAGES_URL=http://localhost:8080/images
 IMAGE_NAME=orders-products-app-client-dev
 
 # Переходим в корневую директорию проекта

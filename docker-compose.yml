@@ -14,6 +14,8 @@ services:
       NODE_ENV: ${ENVIRONMENT}
       PORT: ${SERVER_PORT}
       WS_PORT: ${WS_PORT}
+    networks:
+      - app-network
 
   client:
     build:
@@ -33,3 +35,9 @@ services:
       VUE_APP_IMAGES_URL: ${VUE_APP_IMAGES_URL}
     depends_on:
       - server
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

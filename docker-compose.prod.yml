@@ -12,6 +12,8 @@ services:
       NODE_ENV: production
       PORT: ${SERVER_PORT}
       WS_PORT: ${WS_PORT}
+    networks:
+      - app-network
 
   client:
     build:
@@ -23,7 +25,7 @@ services:
         VUE_APP_WS_URL: ${VUE_APP_WS_URL}
         VUE_APP_IMAGES_URL: ${VUE_APP_IMAGES_URL}
     ports:
-      - "${CLIENT_PORT}:80" # Порт клиента (Nginx)
+      - "${CLIENT_PORT}:80"
     environment:
       NODE_ENV: production
       VUE_APP_API_URL: ${VUE_APP_API_URL}
@@ -31,3 +33,9 @@ services:
       VUE_APP_IMAGES_URL: ${VUE_APP_IMAGES_URL}
     depends_on:
       - server
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
