@@ -62,7 +62,7 @@ Orders & Products App is an application that includes a server-side implemented 
 
 ## Containerization
 
-Firstly install Docker Desktop for managing containers.
+Firstly, install Docker Desktop for managing containers.
 
 The project supports two containerization modes:
 
@@ -88,19 +88,38 @@ To create and run containers in local development mode:
 
 To create and run containers in production mode:
 
-1. Navigate to the scripts directory:
+1. **Important**: To avoid conflicts with image loading, ensure the following changes are made before running the production script:
+
+   - In the client Dockerfile, update the `ARG VUE_APP_IMAGES_URL` to point to a public URL or domain instead of `http://localhost:8080/images`:
+
+     ```Dockerfile
+     ARG VUE_APP_IMAGES_URL="http://your-public-url-or-domain/images"
+     ```
+
+   - In the script `scripts/client/build-prod.sh`, update the `VUE_APP_IMAGES_URL` to a public URL:
+
+     ```bash
+     VUE_APP_IMAGES_URL=http://your-public-url-or-domain/images
+     ```
+
+   - In the script `scripts/start-prod.sh`, update the `export VUE_APP_IMAGES_URL` to a public URL:
+     ```bash
+     export VUE_APP_IMAGES_URL=http://your-public-url-or-domain/images
+     ```
+
+2. Navigate to the scripts directory:
 
    ```bash
    cd /path/to/orders-products-app/scripts
    ```
 
-2. Run the script:
+3. Run the script:
 
    ```bash
    ./start-prod.sh
    ```
 
-3. The application will be available at: `http://<your IP or domain>`.
+4. The application will be available at: `http://<your IP or domain>`.
 
 ## Technologies Used
 

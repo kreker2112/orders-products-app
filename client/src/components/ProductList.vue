@@ -280,22 +280,21 @@ const getOrderTitle = (orderId) => {
     color: #50677a;
     text-decoration: underline;
   }
-}
-
-.delete-button {
-  background: none;
-  border: none;
-  color: #dc3545;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: color 0.2s;
-
-  &:hover {
-    color: #ff6b6b;
-  }
-
-  i {
+  .delete-button {
+    background: none;
+    border: none;
+    color: #dc3545;
     font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #ff6b6b;
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
   }
 }
 </style>
