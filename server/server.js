@@ -11,7 +11,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const WS_PORT = process.env.WS_PORT || 3001;
 
-// Middleware
 app.use(
   cors({
     origin: "*",
@@ -21,13 +20,10 @@ app.use(
 );
 app.use(express.json());
 
-// Обслуживание статических файлов из клиентской части
 app.use(express.static(path.join(__dirname, "client/dist")));
 
-// Маршрут для API изображений
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
-// API маршруты
 app.get("/api/orders", (_req, res) => {
   try {
     const ordersWithProducts = orders.map((order) => ({
@@ -47,23 +43,20 @@ app.get("/api/products", (_req, res) => {
   logger.info("Products data retrieved successfully");
 });
 
-// Обслуживание клиентской части для всех остальных маршрутов
 app.get("*", (_req, res) => {
   res.sendFile(path.resolve(__dirname, "client/dist", "index.html"));
 });
 
-// Запуск основного сервера
 app.listen(PORT, () => {
   logger.info(`Main server is running on port:${PORT}`);
 });
 
-// Настройка WebSocket сервера
 const wsServer = http.createServer();
 const io = new Server(wsServer, {
   cors: {
     origin: "*",
   },
-  path: "/socket.io", // Добавьте эту строку
+  path: "/socket.io",
 });
 
 let activeSessions = 0;
