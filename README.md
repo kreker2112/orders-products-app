@@ -62,6 +62,8 @@ Orders & Products App is an application that includes a server-side implemented 
 
 ## Containerization
 
+Firstly install Docker Desktop for managing containers.
+
 The project supports two containerization modes:
 
 ### 1. Local Development
