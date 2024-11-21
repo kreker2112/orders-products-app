@@ -70,7 +70,7 @@ The project supports two containerization modes:
 
 To create and run containers in local development mode:
 
-1. Navigate to the project's root directory:
+1. Navigate to the scripts directory:
 
    ```bash
    cd /path/to/orders-products-app/scripts
@@ -88,7 +88,7 @@ To create and run containers in local development mode:
 
 To create and run containers in production mode:
 
-1. Navigate to the project's root directory:
+1. Navigate to the scripts directory:
 
    ```bash
    cd /path/to/orders-products-app/scripts
