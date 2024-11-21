@@ -52,7 +52,6 @@ const store = createStore({
   actions: {
     async fetchOrders({ commit, state }) {
       if (state.orders.length === 0) {
-        // Загружаем данные, если они ещё не загружены
         commit("setLoading", true);
         const response = await axios.get(
           `${process.env.VUE_APP_API_URL}/api/orders`
