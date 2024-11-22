@@ -86,9 +86,9 @@ To create and run containers in local development mode:
 
 ### 2. Production
 
-To create and run containers in production mode:
+To create and run containers in production mode on the host:
 
-1. **Important**: To avoid conflicts with image loading, ensure the following changes are made before running the production script:
+1. **Important**: To avoid conflicts with image loading for hosting, ensure the following changes are made before running the production script:
 
    - In the client Dockerfile, update the `ARG VUE_APP_IMAGES_URL` to point to a public URL or domain instead of `http://localhost:8080/images`:
 
